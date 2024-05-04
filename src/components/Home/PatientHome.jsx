@@ -1,7 +1,12 @@
+
 const PatientHome = () => {
   return (
-    <div>PatientHome</div>
-  )
-}
+    <div className="bg-gray-500 h-screen flex justify-center items-center">
+      <div className="text-4xl">
+        Hasta Page Hoşgeldin
+      </div>
+    </div>
+  );
+};
 
-export default PatientHome
+export default PatientHome;

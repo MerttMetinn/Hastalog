@@ -3,9 +3,9 @@ import AdminLogin from "./components/LoginPages/AdminLogin";
 import DoctorLogin from "./components/LoginPages/DoctorLogin";
 import PatientLogin from "./components/LoginPages/PatientLogin";
 import HomePage from "./components/HomePage";
-import DoctorHome from "./components/Home/DoctorHome";
-import AdminHome from "./components/Home/AdminHome";
-import PatientHome from "./components/Home/PatientHome";
+import Admin from "./components/Routes/Admin";
+import Doctor from "./components/Routes/Patient";
+import Patient from "./components/Routes/Patient"
 
 function App() {
   return (
@@ -17,9 +17,9 @@ function App() {
         <Route path="/login/doktor" element={<DoctorLogin />} />
         <Route path="/login/hasta" element={<PatientLogin />} />
 
-        <Route path="/anasayfa/admin" element={<AdminHome />} />
-        <Route path="/anasayfa/doktor" element={<DoctorHome />} />
-        <Route path="/anasayfa/hasta" element={<PatientHome />} />
+        <Route path="/anasayfa/admin" element={<Admin />} />
+        <Route path="/anasayfa/doktor" element={<Doctor />} />
+        <Route path="/anasayfa/hasta" element={<Patient />} />
       </Routes>
     </Router>
   );

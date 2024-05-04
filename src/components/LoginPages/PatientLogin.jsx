@@ -9,11 +9,9 @@ function Login() {
 
  const handleSubmit = (e) => {
     e.preventDefault();
-    // Eksiksiz bilgilerin girilip girilmediğini kontrol ediyoruz
     if (email && password) {
       navigate('/anasayfa/hasta');
     } else {
-      // Eksik bilgiler varsa, kullanıcıya bir uyarı mesajı gösterebilirsiniz
       alert('Lütfen e-posta ve şifrenizi giriniz.');
     }
  };

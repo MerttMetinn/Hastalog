@@ -1,5 +1,5 @@
-import AdminHome from "../Home/AdminHome"
-import AdminNavbar from "../Navbars/AdminNavbar"
+import AdminHome from "../../Home/AdminHome"
+import AdminNavbar from "../../Navbars/AdminNavbar"
 
 const Admin = () => {
   return (

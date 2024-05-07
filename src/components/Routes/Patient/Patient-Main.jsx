@@ -1,5 +1,5 @@
-import PatientHome from "../Home/PatientHome"
-import PatientNavbar from "../Navbars/PatientNavbar"
+import PatientHome from "../../Home/PatientHome"
+import PatientNavbar from "../../Navbars/PatientNavbar"
 
 const Patient = () => {
   return (

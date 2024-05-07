@@ -6,7 +6,6 @@ function Login() {
  const [password, setPassword] = useState('');
  const navigate = useNavigate();
 
-
  const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {

@@ -10,6 +10,10 @@ import RShowAppointment from "./components/Routes/Patient/Operations/Appointment
 import RBookAppointment from "./components/Routes/Patient/Operations/Appointment/RBookAppointment"
 import RShowMedicalReports from "./components/Routes/Patient/Operations/MedicalReports/RShowMedicalReports";
 import RMyInformations from "./components/Routes/Patient/Operations/General/RMyInformations";
+import RAdminAddPatient from "./components/Routes/Admin/Operations/Admin/RAddPatient";
+import RAdminDeletePatient from "./components/Routes/Admin/Operations/Admin/RDeletePatient";
+import RAdminGetAllPatients from "./components/Routes/Admin/Operations/Admin/RGetAllPatients";
+import RAdminGetByIdPatient from "./components/Routes/Admin/Operations/Admin/RGetByIdPatient";
 
 function App() {
   return (
@@ -24,6 +28,12 @@ function App() {
         <Route path="/anasayfa/admin" element={<Admin />} />
         <Route path="/anasayfa/doktor" element={<Doctor />} />
         <Route path="/anasayfa/hasta" element={<Patient />} />
+
+        <Route path="/admin/hastaekle" element={<RAdminAddPatient />} />
+        <Route path="/admin/hastasil" element={<RAdminDeletePatient />} />
+        <Route path="/admin/tümhastalar" element={<RAdminGetAllPatients />} />
+        <Route path="/admin/ıdbazlıhasta" element={<RAdminGetByIdPatient />} />
+
 
         <Route path="/hasta/randevual" element={<RBookAppointment />} />
         <Route path="/hasta/randevularım" element={<RShowAppointment />} />   

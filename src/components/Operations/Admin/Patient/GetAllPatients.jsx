@@ -1,8 +1,8 @@
 
-const GerAllPatients = () => {
+const GetAllPatients = () => {
   return (
-    <div>GerAllPatients</div>
+    <div>GetAllPatients</div>
   )
 }
 
-export default GerAllPatients
+export default GetAllPatients

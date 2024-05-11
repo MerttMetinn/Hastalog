@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddPatient = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +14,18 @@ const AddPatient = () => {
     address: "",
   });
 
+  const notify = () =>
+    toast.success("Hasta Başarıyla eklendi!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -20,6 +34,19 @@ const AddPatient = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    // Bildirimi göster
+    notify();
+    // Form verilerini temizle
+    setFormData({
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
+      birthDate: "",
+      gender: true,
+      phoneNumber: "",
+      address: "",
+    });
   };
 
   return (
@@ -30,7 +57,7 @@ const AddPatient = () => {
       >
         <h1 className="text-3xl font-bold mb-4 text-center py-1">
           Hasta Kaydı
-        </h1>{" "}
+        </h1>
         <div className="flex flex-wrap -mx-4 mb-4">
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
             <label
@@ -48,6 +75,7 @@ const AddPatient = () => {
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
+              placeholder="İsim"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -66,6 +94,7 @@ const AddPatient = () => {
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
+              placeholder="Soyisim"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -84,6 +113,7 @@ const AddPatient = () => {
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
+              placeholder="E-posta"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -102,6 +132,7 @@ const AddPatient = () => {
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
+              placeholder="Şifre"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -120,6 +151,7 @@ const AddPatient = () => {
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
+              placeholder="Doğum Tarihi"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -157,6 +189,7 @@ const AddPatient = () => {
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
+              placeholder="Telefon Numarası"
             />
           </div>
           <div className="w-full px-4 mb-4">
@@ -174,6 +207,7 @@ const AddPatient = () => {
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
+              placeholder="Adres"
             ></textarea>
           </div>
         </div>
@@ -184,6 +218,7 @@ const AddPatient = () => {
           >
             Gönder
           </button>
+          <ToastContainer />
         </div>
       </form>
     </div>

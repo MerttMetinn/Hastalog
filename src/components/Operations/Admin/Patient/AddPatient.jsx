@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios"; // Import Axios
 
 const AddPatient = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ const AddPatient = () => {
   const notify = () =>
     toast.success("Hasta Başarıyla eklendi!", {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -31,22 +32,28 @@ const AddPatient = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
     console.log(formData);
-    // Bildirimi göster
-    notify();
-    // Form verilerini temizle
-    setFormData({
-      name: "",
-      surname: "",
-      email: "",
-      password: "",
-      birthDate: "",
-      gender: true,
-      phoneNumber: "",
-      address: "",
-    });
+    e.preventDefault();
+    try {
+      // Send POST request using Axios
+      await axios.post("https://localhost:7008/api/Patients/AddPatient", formData);
+      notify();
+      setFormData({
+        name: "",
+        surname: "",
+        email: "",
+        password: "",
+        birthDate: "",
+        gender: true,
+        phoneNumber: "",
+        address: "",
+      });
+    } catch (error) {
+      console.error("Error adding patient:", error);
+      // Handle error and show appropriate toast message
+      toast.error("Hasta eklenirken bir hata oluştu!");
+    }
   };
 
   return (

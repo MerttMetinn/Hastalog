@@ -83,13 +83,13 @@ const AdminNavbar = () => {
                         to="/admin/tümhastalar"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
-                        Tüm hastaları görüntüle
+                        Tüm Hastaları görüntüle
                       </Link>
                       <Link
                         to="/admin/ıdbazlıhasta"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
-                        Id bazlı Hasta
+                        Id Bazlı Hasta
                       </Link>
                     </ul>
                   )}
@@ -102,28 +102,28 @@ const AdminNavbar = () => {
                   {isDoctorOpen && (
                     <ul className="absolute left-full top-0 z-20 mt-10 ml-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                       <Link
-                        to="/hasta/randevual"
+                        to="/admin/doktorekle"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
                         Doktor Ekle
                       </Link>
                       <Link
-                        to="/hasta/randevual"
+                        to="/admin/doktorsil"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
                         Doktor Sil
                       </Link>
                       <Link
-                        to="/hasta/randevual"
+                        to="/admin/tümdoktorlar"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
                         Tüm Doktorları görüntüle
                       </Link>
                       <Link
-                        to="/hasta/randevual"
+                        to="/admin/ıdbazlıdoktor"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
-                        Id bazlı Doktor
+                        Id Bazlı Doktor
                       </Link>
                     </ul>
                   )}
@@ -136,28 +136,28 @@ const AdminNavbar = () => {
                   {isAdminOpen && (
                     <ul className="absolute left-full top-0 z-20 mt-20 ml-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                       <Link
-                        to="/hasta/randevual"
+                        to="/admin/adminekle"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
                         Admin Ekle
                       </Link>
                       <Link
-                        to="/hasta/randevual"
+                        to="/admin/adminsil"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
                         Admin Sil
                       </Link>
                       <Link
-                        to="/hasta/randevual"
+                        to="/admin/tümadminler"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
                         Tüm Adminleri görüntüle
                       </Link>
                       <Link
-                        to="/hasta/randevual"
+                        to="/admin/ıdbazlıadmin"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
-                        Id bazlı Admin
+                        Id Bazlı Admin
                       </Link>
                     </ul>
                   )}

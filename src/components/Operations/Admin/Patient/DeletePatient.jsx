@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const DeletePatient = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ const DeletePatient = () => {
   const notify = () =>
     toast.success("Hasta başarıyla silindi!", {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -24,12 +25,19 @@ const DeletePatient = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    notify();
-    setFormData({
-      id: "",
-    });
+    try {
+      await axios.delete(`https://localhost:7008/api/Patients/DeletePatient/${formData.id}`);
+      notify();
+      setFormData({
+        id: "",
+      });
+    } catch (error) {
+      console.error("Error deleting patient:", error);
+      // Handle error and show appropriate toast message
+      toast.error("Hasta silinirken bir hata oluştu!");
+    }
   };
 
   return (

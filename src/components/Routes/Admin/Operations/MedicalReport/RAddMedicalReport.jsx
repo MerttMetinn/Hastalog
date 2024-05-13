@@ -1,8 +1,14 @@
+import AddMedicalReport from "../../../../Operations/Admin/MedicalReport/AddMedicalReport"
+import AdminNavbar from "../../../../Navbars/AdminNavbar" 
 
-const AddMedicalReport = () => {
+const RAddMedicalReport = () => {
   return (
-    <div>AddMedicalReport</div>
+    <div>
+      <AdminNavbar/>
+      <AddMedicalReport />
+    </div>
   )
 }
 
-export default AddMedicalReport
+export default RAddMedicalReport
+

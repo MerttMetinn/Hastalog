@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../utils/AxiosInstance.js';
+import { toast } from 'react-toastify';
 
 function Login() {
  const [email, setEmail] = useState('');
@@ -8,6 +10,18 @@ function Login() {
 
 
  const handleSubmit = (e) => {
+  
+
+    axiosInstance.post("Auths/Login", {email:email, password: password, userType:1})
+    .then(r => {
+        localStorage.setItem("AccessToken", r.data.accessToken);
+    })
+    .catch(e => {
+      toast.error("Kullanıcı Adı veya Şifre Hatalı");
+      console.log(e);
+    });
+
+
     e.preventDefault();
     if (email && password) {
       navigate('/anasayfa/admin');

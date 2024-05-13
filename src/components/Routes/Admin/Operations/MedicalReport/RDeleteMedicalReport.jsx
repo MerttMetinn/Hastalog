@@ -1,8 +1,13 @@
+import DeleteMedicalReport from "../../../../Operations/Admin/MedicalReport/DeleteMedicalReport"
+import AdminNavbar from "../../../../Navbars/AdminNavbar" 
 
-const DeleteMedicalReport = () => {
+const RDeleteMedicalReport = () => {
   return (
-    <div>DeleteMedicalReport</div>
+    <div>
+      <AdminNavbar/>
+      <DeleteMedicalReport />
+    </div>
   )
 }
 
-export default DeleteMedicalReport
+export default RDeleteMedicalReport

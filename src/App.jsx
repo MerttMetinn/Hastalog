@@ -29,6 +29,11 @@ import RAdminDeleteAdmin from "./components/Routes/Admin/Operations/Admin/RDelet
 import RAdminGetAllAdmins from "./components/Routes/Admin/Operations/Admin/RGetAllAdmins";
 import RAdminGetByIdAdmin from "./components/Routes/Admin/Operations/Admin/RGetByIdAdmin";
 
+import RAddMedicalReport from "./components/Routes/Admin/Operations/MedicalReport/RAddMedicalReport";
+import RDeleteMedicalReport from "./components/Routes/Admin/Operations/MedicalReport/RDeleteMedicalReport";
+import RGetAllMedicalReports from "./components/Routes/Admin/Operations/MedicalReport/RGetAllMedicalReports";
+import RGetByIdMedicalReports from "./components/Routes/Admin/Operations/MedicalReport/RGetByIdMedicalReports";
+
 function App() {
   return (
     <Router>
@@ -57,6 +62,11 @@ function App() {
         <Route path="/admin/adminsil" element={<RAdminDeleteAdmin />} />
         <Route path="/admin/tümadminler" element={<RAdminGetAllAdmins />} />
         <Route path="/admin/ıdbazlıadmin" element={<RAdminGetByIdAdmin />} />
+
+        <Route path="/admin/tıbbiraporekle" element={<RAddMedicalReport />} />
+        <Route path="/admin/tıbbiraporsil" element={<RDeleteMedicalReport />} />
+        <Route path="/admin/tümtıbbiraporlar" element={<RGetAllMedicalReports />} />
+        <Route path="/admin/ıdbazlıtıbbirapor" element={<RGetByIdMedicalReports />} />
 
         <Route path="/hasta/randevual" element={<RBookAppointment />} />
         <Route path="/hasta/randevularım" element={<RShowAppointment />} />   

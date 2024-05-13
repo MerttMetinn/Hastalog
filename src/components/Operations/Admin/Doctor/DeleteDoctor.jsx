@@ -1,7 +1,87 @@
-const DeleteDoctor = () => {
-  return (
-    <div>DeleteDoctor</div>
-  )
-}
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
-export default DeleteDoctor
+const DeleteDoctor = () => {
+  const [formData, setFormData] = useState({
+    id: "",
+  });
+
+  const notify = () =>
+    toast.success("Doktor başarıyla silindi!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.delete(`https://localhost:7008/api/Doctors/DeleteDoctor/${formData.id}`);
+      notify();
+      setFormData({
+        id: "",
+      });
+    } catch (error) {
+      console.error("Error deleting patient:", error);
+      // Handle error and show appropriate toast message
+      toast.error("Doktor silinirken bir hata oluştu!");
+    }
+  };
+
+  return (
+    <div className="flex justify-center bg-gray-100 min-h-screen py-6 pb-96">
+      <form
+        className="w-full max-w-3xl bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4"
+        onSubmit={handleSubmit}
+      >
+        <h1 className="text-3xl font-bold mb-4 text-center py-1">
+          Doktor Silme
+        </h1>
+        <div className="flex flex-wrap -mx-4 mb-4">
+          <div className="w-full px-4 mb-4 md:mb-0 py-2">
+            <label
+              htmlFor="id"
+              className="block text-sm font-medium text-gray-700"
+            >
+              ID
+              <span className="text-red-500"> (*)</span>
+            </label>
+            <input
+              type="text"
+              id="id"
+              name="id"
+              value={formData.id}
+              onChange={handleChange}
+              className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              required
+              placeholder="Silinecek Doktorun Id'si"
+            />
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"
+          >
+            Gönder
+          </button>
+          <ToastContainer />
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default DeleteDoctor;

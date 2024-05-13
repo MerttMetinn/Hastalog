@@ -95,7 +95,6 @@ const GetByIdPatient = () => {
             <ToastContainer />
           </div>
         </form>
-        {/* Display patient data in a card-like structure */}
         {patientData && (
           <div className="mt-8 rounded-lg overflow-hidden shadow-md bg-gray-50">
             <h2 className="text-xl font-bold mb-4 text-center py-2">

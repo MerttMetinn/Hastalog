@@ -1,8 +1,13 @@
+import GetAllMedicalReports from "../../../../Operations/Admin/MedicalReport/GetAllMedicalReports"
+import AdminNavbar from "../../../../Navbars/AdminNavbar" 
 
-const GetAllMedicalReports = () => {
+const RGetAllMedicalReports = () => {
   return (
-    <div>GetAllMedicalReports</div>
+    <div>
+      <AdminNavbar/>
+      <GetAllMedicalReports />
+    </div>
   )
 }
 
-export default GetAllMedicalReports
+export default RGetAllMedicalReports

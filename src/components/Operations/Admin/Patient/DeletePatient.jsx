@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import axiosInstance from '../../../../utils/AxiosInstance';
+import Swal from "sweetalert2";
 
 const DeletePatient = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ const DeletePatient = () => {
 
   const notify = () =>
     toast.success("Hasta başarıyla silindi!", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -28,17 +29,29 @@ const DeletePatient = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.delete(`https://localhost:7008/api/Patients/DeletePatient/${formData.id}`);
-      notify();
-      setFormData({
-        id: "",
+      await Swal.fire({
+        title: 'Hasta Silme',
+        text: 'Hastayı silmek istediğinizden emin misiniz?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Evet, sil',
+        cancelButtonText: 'İptal',
+        reverseButtons: true
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axiosInstance.delete(`Patients/DeletePatient/${formData.id}`);
+          notify();
+          setFormData({
+            id: "",
+          });
+        }
       });
     } catch (error) {
       console.error("Error deleting patient:", error);
-      // Handle error and show appropriate toast message
       toast.error("Hasta silinirken bir hata oluştu!");
     }
   };
+  
 
   return (
     <div className="flex justify-center bg-gray-100 min-h-screen py-6 pb-96">
@@ -77,7 +90,6 @@ const DeletePatient = () => {
           >
             Gönder
           </button>
-          <ToastContainer />
         </div>
       </form>
     </div>

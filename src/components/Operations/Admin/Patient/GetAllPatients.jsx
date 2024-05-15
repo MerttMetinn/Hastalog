@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
-import { ToastContainer, toast } from "react-toastify";
+import axiosInstance from '../../../../utils/AxiosInstance';
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PatientsTable from '../../../Tables/PatientsTable';
 
@@ -10,7 +10,7 @@ const GetAllPatients = () => {
 
   const notifySuccess = () =>
     toast.success("Hasta verileri başarıyla getirildi !", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -22,7 +22,7 @@ const GetAllPatients = () => {
 
   const notifyError = () =>
     toast.error("Hasta verileri alınamadı !", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -35,7 +35,7 @@ const GetAllPatients = () => {
   const handleButtonClick = () => {
     setLoading(true);
 
-    axios.get('https://localhost:7008/api/Patients/GetAllPatients')
+    axiosInstance.get('Patients/GetAllPatients')
       .then((response) => {
         setHastalar(response.data);
         notifySuccess();
@@ -64,7 +64,6 @@ const GetAllPatients = () => {
           >
             {loading ? 'Yükleniyor...' : 'Getir'}
           </button>
-          <ToastContainer />
         </div>
         <div className="mt-4">
           {hastalar.length > 0 ? (

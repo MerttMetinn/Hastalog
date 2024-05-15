@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios"; // Import Axios
+import axiosInstance from '../../../../utils/AxiosInstance';
 
 const AddPatient = () => {
   const [formData, setFormData] = useState({
@@ -15,9 +15,21 @@ const AddPatient = () => {
     address: "",
   });
 
-  const notify = () =>
-    toast.success("Hasta Başarıyla eklendi!", {
-      position: "top-right",
+  const notifySuccess = () =>
+    toast.success("Hasta başarıyla eklendi !", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
+  const notifyError = () =>
+    toast.error("Hasta eklenirken bir hata oluştu !", {
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -32,13 +44,11 @@ const AddPatient = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    console.log(formData);
-    e.preventDefault();
-    try {
-      // Send POST request using Axios
-      await axios.post("https://localhost:7008/api/Patients/AddPatient", formData);
-      notify();
+  const handleSubmit = () => {
+  axiosInstance.post('Patients/AddPatient', formData)
+    .then((response) => {
+      console.log('Hasta başarıyla eklendi:', response.data);
+      notifySuccess();
       setFormData({
         name: "",
         surname: "",
@@ -49,12 +59,12 @@ const AddPatient = () => {
         phoneNumber: "",
         address: "",
       });
-    } catch (error) {
-      console.error("Error adding patient:", error);
-      // Handle error and show appropriate toast message
-      toast.error("Hasta eklenirken bir hata oluştu!");
-    }
-  };
+    })
+    .catch((error) => {
+      console.error('Hasta eklenirken bir hata oluştu: ', error);
+      notifyError();
+    })
+};
 
   return (
     <div className="flex justify-center bg-gray-100 min-h-screen py-6">
@@ -225,7 +235,6 @@ const AddPatient = () => {
           >
             Gönder
           </button>
-          <ToastContainer />
         </div>
       </form>
     </div>

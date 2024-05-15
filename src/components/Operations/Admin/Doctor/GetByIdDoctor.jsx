@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import axiosInstance from '../../../../utils/AxiosInstance';
 
 const GetByIdDoctor = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +11,7 @@ const GetByIdDoctor = () => {
 
   const notifySuccess = () =>
     toast.success("İlgili Doktorun verileri başarıyla getirildi !", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -22,8 +22,8 @@ const GetByIdDoctor = () => {
     });
 
   const notifyError = () =>
-    toast.error("Doktor verileri alınamadı !", {
-      position: "top-right",
+    toast.error("Doktorun verileri alınamadı !", {
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -41,14 +41,14 @@ const GetByIdDoctor = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .get(`https://localhost:7008/api/Doctors/GetDoctorById/${formData.id}`)
+    axiosInstance
+      .get(`Doctors/GetDoctorById/${formData.id}`)
       .then((response) => {
         setDoctorData(response.data);
         notifySuccess();
       })
       .catch((error) => {
-        console.error("Hasta verileri alınamadı: ", error);
+        console.error("Doktor verileri alınamadı: ", error);
         setFormData({
           id: "",
         });
@@ -81,7 +81,7 @@ const GetByIdDoctor = () => {
                 onChange={handleChange}
                 className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
                 required
-                placeholder="ID Bazlı Hasta Görüntüle"
+                placeholder="ID Bazlı Doktor Görüntüle"
               />
             </div>
           </div>
@@ -92,13 +92,12 @@ const GetByIdDoctor = () => {
             >
               Gönder
             </button>
-            <ToastContainer />
           </div>
         </form>
         {doctorData && (
           <div className="mt-8 rounded-lg overflow-hidden shadow-md bg-gray-50">
             <h2 className="text-xl font-bold mb-4 text-center py-2">
-              Hasta Detayları
+              Doktor Detayları
             </h2>
             <div className="p-4">
               <p>

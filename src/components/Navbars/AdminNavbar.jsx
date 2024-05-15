@@ -1,37 +1,83 @@
 import { useState } from "react";
 import { RiAdminLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const AdminNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPatientOpen, setPatientOpen] = useState(false);
   const [isAdminOpen, setAdminOpen] = useState(false);
   const [isDoctorOpen, setDoctorOpen] = useState(false);
+  const [isMedicalReportOpen, setMedicalReportOpen] = useState(false);
 
   const handleDropdownToggle = () => {
     setIsOpen(!isOpen);
     setPatientOpen(false);
     setDoctorOpen(false);
     setAdminOpen(false);
+    setMedicalReportOpen(false);
   };
 
   const handlePatientToggle = () => {
     setPatientOpen(!isPatientOpen);
     setDoctorOpen(false);
     setAdminOpen(false);
+    setMedicalReportOpen(false);
   };
 
   const handleDoctorToggle = () => {
     setDoctorOpen(!isDoctorOpen);
     setPatientOpen(false);
     setAdminOpen(false);
+    setMedicalReportOpen(false);
   };
 
   const handleAdminToggle = () => {
     setAdminOpen(!isAdminOpen);
     setPatientOpen(false);
     setDoctorOpen(false);
+    setMedicalReportOpen(false);
   };
+
+  const handleMedicalReportToggle = () => {
+    setMedicalReportOpen(!isMedicalReportOpen);
+    setPatientOpen(false);
+    setDoctorOpen(false);
+    setAdminOpen(false);
+  };
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Çıkış Yap",
+      text: "Çıkış yapmak istediğinizden emin misiniz?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Çıkış Yap",
+      cancelButtonText: "Sayfada Kal",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        notify();
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      }
+    });
+  };
+
+  const notify = () =>
+    toast.info("Çıkış yapılıyor!", {
+      position: "bottom-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   return (
     <nav className="bg-gray-800">
@@ -162,13 +208,41 @@ const AdminNavbar = () => {
                     </ul>
                   )}
                   <Link
-                    to="/hasta/tıbbiraporlarım"
                     className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                    onClick={handleMedicalReportToggle}
                   >
                     Tıbbi Rapor İşlemleri
                   </Link>
+                  {isMedicalReportOpen && (
+                    <ul className="absolute left-full top-0 z-20 mt-30 ml-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                      <Link
+                        to="/admin/raporekle"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Rapor Ekle
+                      </Link>
+                      <Link
+                        to="/admin/raporsil"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Rapor Sil
+                      </Link>
+                      <Link
+                        to="/admin/tümraporlar"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Tüm Raporları Görüntüle
+                      </Link>
+                      <Link
+                        to="/admin/ıdbazlırapor"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Id Bazlı Rapor
+                      </Link>
+                    </ul>
+                  )}
                   <Link
-                    to="/hasta/tıbbiraporlarım"
+                    to="/hasta/randevuislemleri"
                     className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                   >
                     Randevu İşlemleri
@@ -182,8 +256,8 @@ const AdminNavbar = () => {
                 </ul>
               )}
               <Link
-                to="#"
                 className="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                onClick={handleLogout}
               >
                 Çıkış Yap
               </Link>

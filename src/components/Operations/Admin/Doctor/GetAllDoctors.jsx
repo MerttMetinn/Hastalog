@@ -1,8 +1,8 @@
-import React from 'react';
-import axiosInstance from '../../../../utils/AxiosInstance';
-import { ToastContainer, toast } from "react-toastify";
+import React from "react";
+import axiosInstance from "../../../../utils/AxiosInstance";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import DoctorsTable from '../../../Tables/DoctorsTable';
+import DoctorsTable from "../../../Tables/DoctorsTable";
 
 const GetAllDoctors = () => {
   const [doktorlar, setDoktorlar] = React.useState([]);
@@ -10,7 +10,7 @@ const GetAllDoctors = () => {
 
   const notifySuccess = () =>
     toast.success("Doktor verileri başarıyla getirildi !", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -22,7 +22,7 @@ const GetAllDoctors = () => {
 
   const notifyError = () =>
     toast.error("Doktor verileri alınamadı !", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -34,14 +34,14 @@ const GetAllDoctors = () => {
 
   const handleButtonClick = () => {
     setLoading(true);
-
-    axiosInstance.get('Doctors/GetAllDoctors')
+    axiosInstance
+      .get("Doctors/GetAllDoctors")
       .then((response) => {
         setDoktorlar(response.data);
         notifySuccess();
       })
       .catch((error) => {
-        console.error('Doktor verileri alınamadı: ', error);
+        console.error("Doktor verileri alınamadı: ", error);
         notifyError();
       })
       .finally(() => {
@@ -62,15 +62,16 @@ const GetAllDoctors = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"
             disabled={loading}
           >
-            {loading ? 'Yükleniyor...' : 'Getir'}
+            {loading ? "Yükleniyor..." : "Getir"}
           </button>
-          <ToastContainer />
         </div>
         <div className="mt-4">
           {doktorlar.length > 0 ? (
             <DoctorsTable doktorlar={doktorlar} />
           ) : (
-            <p className="flex justify-center text-gray-500 py-8">Henüz doktor verisi yok.</p>
+            <p className="flex justify-center text-gray-500 py-8">
+              Henüz doktor verisi yok.
+            </p>
           )}
         </div>
       </div>
@@ -79,4 +80,3 @@ const GetAllDoctors = () => {
 };
 
 export default GetAllDoctors;
-

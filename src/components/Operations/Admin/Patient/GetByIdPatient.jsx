@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import axiosInstance from '../../../../utils/AxiosInstance';
 
 const GetByIdPatient = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +11,7 @@ const GetByIdPatient = () => {
 
   const notifySuccess = () =>
     toast.success("İlgili Hastanın verileri başarıyla getirildi !", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -22,8 +22,8 @@ const GetByIdPatient = () => {
     });
 
   const notifyError = () =>
-    toast.error("Hasta verileri alınamadı !", {
-      position: "top-right",
+    toast.error("Hastanın verileri alınamadı !", {
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -41,8 +41,8 @@ const GetByIdPatient = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .get(`https://localhost:7008/api/Patients/GetPatientById/${formData.id}`)
+    axiosInstance
+      .get(`Patients/GetPatientById/${formData.id}`)
       .then((response) => {
         setPatientData(response.data);
         notifySuccess();
@@ -92,7 +92,6 @@ const GetByIdPatient = () => {
             >
               Gönder
             </button>
-            <ToastContainer />
           </div>
         </form>
         {patientData && (

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import axiosInstance from "../../../../utils/AxiosInstance";
 
 const AddDoctor = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ const AddDoctor = () => {
 
   const notify = () =>
     toast.success("Doktor Başarıyla eklendi!", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -38,10 +38,7 @@ const AddDoctor = () => {
     console.log(formData);
     e.preventDefault();
     try {
-      await axios.post(
-        "https://localhost:7008/api/Doctors/AddDoctor",
-        formData
-      );
+      await axiosInstance.post("Doctors/AddDoctor", formData);
       notify();
       setFormData({
         name: "",
@@ -199,7 +196,6 @@ const AddDoctor = () => {
               value={formData.specializationArea}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
-              required
             >
               <option value="Kardiyoloji">Kardiyoloji</option>
               <option value="Nöroloji">Nöroloji</option>
@@ -227,7 +223,6 @@ const AddDoctor = () => {
               value={formData.hospitalName}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
-              required
             >
               <option value="Kardiyoloji">Acıbadem Hastanesi</option>
               <option value="Nöroloji">Memorial Sağlık Grubu</option>
@@ -271,7 +266,6 @@ const AddDoctor = () => {
               placeholder="Adres"
             ></textarea>
           </div>
-          
         </div>
         <div className="flex justify-center">
           <button
@@ -280,7 +274,6 @@ const AddDoctor = () => {
           >
             Gönder
           </button>
-          <ToastContainer />
         </div>
       </form>
     </div>

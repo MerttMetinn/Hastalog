@@ -50,8 +50,8 @@ const GetAllDoctors = () => {
   };
 
   return (
-    <div className="flex justify-center bg-gray-100 min-h-screen py-6 pb-96">
-      <div className="w-full max-w-fit bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+    <div className="flex justify-center items-center bg-gradient-to-r from-emerald-400 to-cyan-400 min-h-screen py-6">
+      <div className="w-full max-w-full bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
         <h1 className="text-3xl font-bold mb-4 text-center py-1">
           Tüm Doktorları Görüntüle
         </h1>

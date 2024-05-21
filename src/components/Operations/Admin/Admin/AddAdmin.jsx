@@ -47,9 +47,9 @@ const AddAdmin = () => {
   };
 
   return (
-    <div className="flex justify-center bg-gray-100 min-h-screen py-6">
+    <div className="flex justify-center items-center bg-gradient-to-r from-emerald-400 to-cyan-400 min-h-screen py-6">
       <form
-        className="w-full max-w-3xl h-fit bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4"
+        className="w-full max-w-3xl h-fit isolate bg-white/20 shadow-lg ring-1 ring-black/5 rounded-lg px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold mb-4 text-center py-1">
@@ -70,9 +70,10 @@ const AddAdmin = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              className="mt-1 p-2 border border-gray-500 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white bg-opacity-50 placeholder-gray-500"
               required
               placeholder="İsim"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -89,9 +90,10 @@ const AddAdmin = () => {
               name="surname"
               value={formData.surname}
               onChange={handleChange}
-              className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              className="mt-1 p-2 border border-gray-500 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white bg-opacity-50 placeholder-gray-500"
               required
               placeholder="Soyisim"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -108,9 +110,10 @@ const AddAdmin = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              className="mt-1 p-2 border border-gray-500 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white bg-opacity-50 placeholder-gray-500"
               required
               placeholder="E-posta"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -127,7 +130,7 @@ const AddAdmin = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              className="mt-1 p-2 border border-gray-500 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white bg-opacity-50 placeholder-gray-500"
               required
               placeholder="Şifre"
             />
@@ -136,7 +139,7 @@ const AddAdmin = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"
+            className="bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
           >
             Gönder
           </button>

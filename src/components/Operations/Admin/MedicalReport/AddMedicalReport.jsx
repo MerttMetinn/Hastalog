@@ -5,10 +5,11 @@ import axiosInstance from "../../../../utils/AxiosInstance";
 
 const AddMedicalReport = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
+    doctorId: "",
+    patientId: "",
+    reportContent: "",
+    reportDate: "",
+    imageUrl: "",
   });
 
   const notify = () =>
@@ -32,17 +33,18 @@ const AddMedicalReport = () => {
     console.log(formData);
     e.preventDefault();
     try {
-      await axiosInstance.post("Admins/AddAdmin", formData);
+      await axiosInstance.post("MedicalReports/AddReport", formData);
       notify();
       setFormData({
-        name: "",
-        surname: "",
-        email: "",
-        password: "",
+        doctorId: "",
+        patientId: "",
+        reportContent: "",
+        reportDate: "",
+        imageUrl: "",
       });
     } catch (error) {
-      console.error("Error adding Admin:", error);
-      toast.error("Admin eklenirken bir hata oluştu!");
+      console.error("Error adding Medical Report:", error);
+      toast.error("Rapor eklenirken bir hata oluştu!");
     }
   };
 
@@ -53,83 +55,101 @@ const AddMedicalReport = () => {
         onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold mb-4 text-center py-1">
-          Admin Kaydı
+          Tıbbi Rapor Ekle
         </h1>
         <div className="flex flex-wrap -mx-4 mb-4">
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
             <label
-              htmlFor="name"
+              htmlFor="doctorId"
               className="block text-sm font-medium text-gray-700"
             >
-              İsim
+              Doktor ID
               <span className="text-red-500"> (*)</span>
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
-              value={formData.name}
+              id="doctorId"
+              name="doctorId"
+              value={formData.doctorId}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
-              placeholder="İsim"
+              placeholder="Doktor ID"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
             <label
-              htmlFor="surname"
+              htmlFor="patientId"
               className="block text-sm font-medium text-gray-700"
             >
-              Soyisim
+              Hasta ID
               <span className="text-red-500"> (*)</span>
             </label>
             <input
               type="text"
-              id="surname"
-              name="surname"
-              value={formData.surname}
+              id="patientId"
+              name="patientId"
+              value={formData.patientId}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
-              placeholder="Soyisim"
+              placeholder="Hasta ID"
+            />
+          </div>     
+          <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
+            <label
+              htmlFor="reportDate"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Rapor Tarihi
+              <span className="text-red-500"> (*)</span>
+            </label>
+            <input
+              type="date"
+              id="reportDate"
+              name="reportDate"
+              value={formData.reportDate}
+              onChange={handleChange}
+              className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              required
+              placeholder="Rapor Tarihi"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
             <label
-              htmlFor="email"
+              htmlFor="imageUrl"
               className="block text-sm font-medium text-gray-700"
             >
-              E-posta
+              Resim URL
               <span className="text-red-500"> (*)</span>
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              value={formData.imageUrl}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
-              placeholder="E-posta"
+              placeholder="Resim URL"
             />
           </div>
-          <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
+        <div className="w-full px-4 mb-4 py-2">
             <label
-              htmlFor="password"
+              htmlFor="reportContent"
               className="block text-sm font-medium text-gray-700"
             >
-              Şifre
+              Rapor İçeriği
               <span className="text-red-500"> (*)</span>
             </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
+            <textarea
+              id="reportContent"
+              name="reportContent"
+              value={formData.reportContent}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
-              placeholder="Şifre"
+              placeholder="Rapor İçeriği"
             />
           </div>
         </div>

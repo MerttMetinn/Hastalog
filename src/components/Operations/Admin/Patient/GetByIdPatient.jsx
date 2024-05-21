@@ -82,6 +82,7 @@ const GetByIdPatient = () => {
                 className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
                 required
                 placeholder="ID Bazlı Hasta Görüntüle"
+                autoComplete="off"
               />
             </div>
           </div>

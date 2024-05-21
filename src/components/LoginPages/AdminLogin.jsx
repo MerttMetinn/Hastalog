@@ -4,7 +4,7 @@ import axiosInstance from "../../utils/AxiosInstance.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Login() {
+function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -13,12 +13,12 @@ function Login() {
     toast.error("Hatalı email veya şifre !", {
       position: "bottom-right",
       autoClose: 3000,
-      hideProgressBar: false,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: "colored",
     });
 
   const handleSubmit = (e) => {
@@ -28,6 +28,7 @@ function Login() {
       .post("Auths/Login", { email: email, password: password, userType: 1 })
       .then((response) => {
         localStorage.setItem("AccessToken", response.data.accessToken);
+        localStorage.setItem("UserId", response.data.id);
         navigate("/anasayfa/admin");
       })
       .catch((error) => {
@@ -37,9 +38,11 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full sm:w-96 backdrop-filter backdrop-blur-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Admin Girişi</h2>
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-red-600 flex justify-center items-center">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full backdrop-filter backdrop-blur-lg">
+        <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
+          Admin Girişi
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -51,7 +54,7 @@ function Login() {
             <input
               type="email"
               id="email"
-              className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+              className="border border-gray-300 rounded-md px-4 py-3 w-full focus:outline-none focus:border-blue-500 transition duration-300"
               placeholder="Email adresinizi giriniz"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -69,7 +72,7 @@ function Login() {
             <input
               type="password"
               id="password"
-              className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+              className="border border-gray-300 rounded-md px-4 py-3 w-full focus:outline-none focus:border-blue-500 transition duration-300"
               placeholder="Şifrenizi giriniz"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -78,7 +81,7 @@ function Login() {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300 w-full"
+            className="bg-blue-600 text-white font-semibold py-3 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300 w-full"
           >
             Giriş Yap
           </button>
@@ -88,4 +91,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;

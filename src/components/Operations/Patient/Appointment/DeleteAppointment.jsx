@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../../../../utils/AxiosInstance";
 import Swal from "sweetalert2";
 
-const DeleteMedicalReport = () => {
+const DeleteAppointment = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialId = queryParams.get('id') || '';
+
   const [formData, setFormData] = useState({
-    reportId: "",
+    appointmentId: initialId,
   });
 
   const notify = () =>
-    toast.success("Tıbbi Rapor başarıyla silindi!", {
+    toast.success("Randevu başarıyla silindi!", {
       position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -30,55 +35,63 @@ const DeleteMedicalReport = () => {
     e.preventDefault();
     try {
       await Swal.fire({
-        title: 'Tıbbi Rapor Silme',
-        text: 'Raporu silmek istediğinizden emin misiniz?',
-        icon: 'warning',
+        title: "Randevu Silme",
+        text: "Randevuyu silmek istediğinizden emin misiniz?",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonText: 'Evet, sil',
-        cancelButtonText: 'İptal',
-        reverseButtons: true
+        confirmButtonText: "Evet, sil",
+        cancelButtonText: "İptal",
+        reverseButtons: true,
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await axiosInstance.delete(`MedicalReports/DeleteReport/${formData.reportId}`);
+          await axiosInstance.delete(
+            `Appointments/DeleteAppointment/${formData.appointmentId}`
+          );
           notify();
           setFormData({
-            reportId: "",
+            appointmentId: "",
           });
         }
       });
     } catch (error) {
-      console.error("Error deleting Medical Report:", error);
-      toast.error("Rapor silinirken bir hata oluştu!");
+      console.error("Error deleting Appointment:", error);
+      toast.error("Randevu silinirken bir hata oluştu!");
     }
   };
 
+  useEffect(() => {
+    if (initialId) {
+      setFormData({ appointmentId: initialId });
+    }
+  }, [initialId]);
+
   return (
-    <div className="flex justify-center bg-gray-100 min-h-screen py-6 pb-96">
+    <div className="flex justify-center items-center bg-gradient-to-br from-blue-400 to-blue-600 min-h-screen py-6">
       <form
-        className="w-full max-w-3xl bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4"
+        className="w-full max-w-3xl h-fit isolate bg-white/20 shadow-lg ring-1 ring-black/5 rounded-lg px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold mb-4 text-center py-1">
-          Tıbbi Rapor Silme
+          Randevu Silme
         </h1>
         <div className="flex flex-wrap -mx-4 mb-4">
           <div className="w-full px-4 mb-4 md:mb-0 py-2">
             <label
-              htmlFor="reportId"
+              htmlFor="appointmentId"
               className="block text-sm font-medium text-gray-700"
             >
-              Rapor ID
+              Randevu ID
               <span className="text-red-500"> (*)</span>
             </label>
             <input
               type="text"
-              id="reportId"
-              name="reportId"
-              value={formData.reportId}
+              id="appointmentId"
+              name="appointmentId"
+              value={formData.appointmentId}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
-              placeholder="Silinecek Raporun Id'si"
+              placeholder="Silinecek Randevunun Id'si"
             />
           </div>
         </div>
@@ -95,4 +108,4 @@ const DeleteMedicalReport = () => {
   );
 };
 
-export default DeleteMedicalReport;
+export default DeleteAppointment;

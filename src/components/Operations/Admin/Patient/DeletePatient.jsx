@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from '../../../../utils/AxiosInstance';
 import Swal from "sweetalert2";
 
 const DeletePatient = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialId = queryParams.get('id') || '';
+
   const [formData, setFormData] = useState({
-    id: "",
+    id: initialId,
   });
 
   const notify = () =>
@@ -51,7 +56,12 @@ const DeletePatient = () => {
       toast.error("Hasta silinirken bir hata oluştu!");
     }
   };
-  
+
+  useEffect(() => {
+    if (initialId) {
+      setFormData({ id: initialId });
+    }
+  }, [initialId]);
 
   return (
     <div className="flex justify-center bg-gray-100 min-h-screen py-6 pb-96">
@@ -80,6 +90,7 @@ const DeletePatient = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Silinecek Hastanın Id'si"
+              autoComplete="off"
             />
           </div>
         </div>

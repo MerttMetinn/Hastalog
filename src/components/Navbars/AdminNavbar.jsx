@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RiAdminLine } from "react-icons/ri";
+import { FaUserShield } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -10,6 +10,7 @@ const AdminNavbar = () => {
   const [isAdminOpen, setAdminOpen] = useState(false);
   const [isDoctorOpen, setDoctorOpen] = useState(false);
   const [isMedicalReportOpen, setMedicalReportOpen] = useState(false);
+  const [isAppointmentOpen, setAppointmentOpen] = useState(false);
 
   const handleDropdownToggle = () => {
     setIsOpen(!isOpen);
@@ -17,6 +18,7 @@ const AdminNavbar = () => {
     setDoctorOpen(false);
     setAdminOpen(false);
     setMedicalReportOpen(false);
+    setAppointmentOpen(false);
   };
 
   const handlePatientToggle = () => {
@@ -24,6 +26,7 @@ const AdminNavbar = () => {
     setDoctorOpen(false);
     setAdminOpen(false);
     setMedicalReportOpen(false);
+    setAppointmentOpen(false);
   };
 
   const handleDoctorToggle = () => {
@@ -31,6 +34,7 @@ const AdminNavbar = () => {
     setPatientOpen(false);
     setAdminOpen(false);
     setMedicalReportOpen(false);
+    setAppointmentOpen(false);
   };
 
   const handleAdminToggle = () => {
@@ -38,6 +42,7 @@ const AdminNavbar = () => {
     setPatientOpen(false);
     setDoctorOpen(false);
     setMedicalReportOpen(false);
+    setAppointmentOpen(false);
   };
 
   const handleMedicalReportToggle = () => {
@@ -45,7 +50,16 @@ const AdminNavbar = () => {
     setPatientOpen(false);
     setDoctorOpen(false);
     setAdminOpen(false);
+    setAppointmentOpen(false);
   };
+
+  const handleAppointmentToggle = () => {
+    setAppointmentOpen(!isAppointmentOpen);
+    setPatientOpen(false);
+    setDoctorOpen(false);
+    setAdminOpen(false);
+    setMedicalReportOpen(false);
+    };
 
   const handleLogout = () => {
     Swal.fire({
@@ -80,12 +94,12 @@ const AdminNavbar = () => {
     });
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-gradient-to-r from-slate-900 to-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/anasayfa/admin">
             <div className="flex items-center text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-lg font-medium">
-              <RiAdminLine className="text-white font-semibold text-2xl" />
+              <FaUserShield className="text-white font-semibold text-2xl" />
               <span className="ml-1">Hoşgeldiniz - Admin</span>
             </div>
           </Link>
@@ -205,6 +219,12 @@ const AdminNavbar = () => {
                       >
                         Id Bazlı Admin
                       </Link>
+                      <Link
+                        to="/admin/admingüncelle"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Admin Güncelle
+                      </Link>
                     </ul>
                   )}
                   <Link
@@ -214,41 +234,58 @@ const AdminNavbar = () => {
                     Tıbbi Rapor İşlemleri
                   </Link>
                   {isMedicalReportOpen && (
-                    <ul className="absolute left-full top-0 z-20 mt-30 ml-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <ul className="absolute left-full top-0 z-20 ml-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" style={{ marginTop: '120px' }}>
                       <Link
-                        to="/admin/raporekle"
+                        to="/admin/tıbbiraporekle"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
-                        Rapor Ekle
+                        Tıbbi Rapor Ekle
                       </Link>
                       <Link
-                        to="/admin/raporsil"
+                        to="/admin/tıbbiraporsil"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
-                        Rapor Sil
+                        Tıbbi Rapor Sil
                       </Link>
                       <Link
-                        to="/admin/tümraporlar"
+                        to="/admin/tümtıbbiraporlar"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
                         Tüm Raporları Görüntüle
                       </Link>
                       <Link
-                        to="/admin/ıdbazlırapor"
+                        to="/admin/ıdbazlıtıbbirapor"
                         className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                       >
-                        Id Bazlı Rapor
+                        Id Bazlı Tıbbi Rapor
                       </Link>
                     </ul>
                   )}
                   <Link
-                    to="/hasta/randevuislemleri"
                     className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                    onClick={handleAppointmentToggle}
                   >
                     Randevu İşlemleri
                   </Link>
+                  {isAppointmentOpen && (
+                      <ul className="absolute left-full top-0 z-20 ml-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" style={{ marginTop: '160px' }}>
+                      <Link
+                        to="/admin/randevusil"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Randevu Sil
+                      </Link>
+                      <Link
+                        to="/admin/tümrandevular"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Tüm Randevuları Görüntüle
+                      </Link>
+                    </ul>
+                    )
+                  }
                   <Link
-                    to="/hasta/bilgilerim"
+                    to="/admin/bilgilerim"
                     className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
                   >
                     Bilgilerim

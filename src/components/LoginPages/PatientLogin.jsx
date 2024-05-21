@@ -13,12 +13,12 @@ function Login() {
     toast.error("Hatalı email veya şifre !", {
       position: "bottom-right",
       autoClose: 3000,
-      hideProgressBar: false,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: "colored",
     });
 
   const handleSubmit = (e) => {
@@ -28,6 +28,7 @@ function Login() {
       .post("Auths/Login", { email: email, password: password, userType: 3 })
       .then((response) => {
         localStorage.setItem("AccessToken", response.data.accessToken);
+        localStorage.setItem("UserId", response.data.id);
         navigate("/anasayfa/hasta");
       })
       .catch((error) => {
@@ -37,9 +38,11 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full sm:w-96 backdrop-filter backdrop-blur-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Hasta Girişi</h2>
+    <div className="min-h-screen bg-gradient-to-br from-blue-400 to-blue-600 flex justify-center items-center">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full backdrop-filter backdrop-blur-lg">
+        <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
+          Hasta Girişi
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label

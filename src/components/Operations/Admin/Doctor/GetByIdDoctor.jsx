@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from '../../../../utils/AxiosInstance';
 
 const GetByIdDoctor = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialId = queryParams.get('id') || '';
+
   const [formData, setFormData] = useState({
-    id: "",
+    id: initialId,
   });
   const [doctorData, setDoctorData] = useState(null);
 
@@ -32,6 +37,21 @@ const GetByIdDoctor = () => {
       progress: undefined,
       theme: "light",
     });
+
+  useEffect(() => {
+    if (initialId) {
+      axiosInstance
+        .get(`Doctors/GetDoctorById/${initialId}`)
+        .then((response) => {
+          setDoctorData(response.data);
+          notifySuccess();
+        })
+        .catch((error) => {
+          console.error("Doktor verileri alınamadı: ", error);
+          notifyError();
+        });
+    }
+  }, [initialId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,6 +102,7 @@ const GetByIdDoctor = () => {
                 className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
                 required
                 placeholder="ID Bazlı Doktor Görüntüle"
+                autoComplete="off"
               />
             </div>
           </div>
@@ -127,6 +148,12 @@ const GetByIdDoctor = () => {
               </p>
               <p>
                 <strong>Adres:</strong> {doctorData.address}
+              </p>
+              <p>
+                <strong>Uzmanlık Alanı:</strong> {doctorData.specializationArea}
+              </p>
+              <p>
+                <strong>Hastane Adı:</strong> {doctorData.hospitalName}
               </p>
             </div>
           </div>

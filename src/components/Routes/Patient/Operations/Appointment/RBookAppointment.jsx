@@ -4,7 +4,7 @@ import PatientNavbar from "../../../../Navbars/PatientNavbar"
 const RBookAppointment = () => {
   return (
     <div>
-      <PatientNavbar/>
+      <PatientNavbar />
       <BookAppointment />
     </div>
   )

@@ -10,7 +10,7 @@ const AddDoctor = () => {
     email: "",
     password: "",
     birthDate: "",
-    gender: true,
+    gender: "",
     phoneNumber: "",
     address: "",
     specializationArea: "",
@@ -18,7 +18,7 @@ const AddDoctor = () => {
   });
 
   const notify = () =>
-    toast.success("Doktor Başarıyla eklendi!", {
+    toast.success("Doktor başarıyla eklendi!", {
       position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -35,10 +35,13 @@ const AddDoctor = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(formData);
     e.preventDefault();
+    const formattedData = {
+      ...formData,
+      gender: formData.gender === "true" ? true : false,
+    };
     try {
-      await axiosInstance.post("Doctors/AddDoctor", formData);
+      await axiosInstance.post("Doctors/AddDoctor", formattedData);
       notify();
       setFormData({
         name: "",
@@ -46,7 +49,7 @@ const AddDoctor = () => {
         email: "",
         password: "",
         birthDate: "",
-        gender: true,
+        gender: "",
         phoneNumber: "",
         address: "",
         specializationArea: "",
@@ -85,6 +88,7 @@ const AddDoctor = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="İsim"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -104,6 +108,7 @@ const AddDoctor = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Soyisim"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -123,6 +128,7 @@ const AddDoctor = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="E-posta"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -142,6 +148,7 @@ const AddDoctor = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Şifre"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -177,9 +184,13 @@ const AddDoctor = () => {
               value={formData.gender}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              required
             >
-              <option value={true}>Erkek</option>
-              <option value={false}>Kadın</option>
+              <option value="" disabled>
+                Cinsiyet Seçiniz
+              </option>
+              <option value="true">Erkek</option>
+              <option value="false">Kadın</option>
             </select>
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -196,7 +207,11 @@ const AddDoctor = () => {
               value={formData.specializationArea}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              required
             >
+              <option value="" disabled>
+                Uzmanlık Alanı Seçiniz
+              </option>
               <option value="Kardiyoloji">Kardiyoloji</option>
               <option value="Nöroloji">Nöroloji</option>
               <option value="Ortopedi">Ortopedi</option>
@@ -223,10 +238,14 @@ const AddDoctor = () => {
               value={formData.hospitalName}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              required
             >
-              <option value="Kardiyoloji">Acıbadem Hastanesi</option>
-              <option value="Nöroloji">Memorial Sağlık Grubu</option>
-              <option value="Ortopedi">Florence Nightingale Hastanesi</option>
+              <option value="" disabled>
+                Hastane Seçiniz
+              </option>
+              <option value="Koç Hastanesi">Koç Hastanesi</option>
+              <option value="Kocaeli Devlet Hastanesi">Kocaeli Devlet Hastanesi</option>
+              <option value="Florence Nightingale Hastanesi">Florence Nightingale Hastanesi</option>
             </select>
           </div>
           <div className="w-full px-4 mb-4 py-2">
@@ -246,6 +265,7 @@ const AddDoctor = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Telefon Numarası"
+              autoComplete="off"
             />
           </div>
           <div className="w-full px-4 mb-4 py-2">

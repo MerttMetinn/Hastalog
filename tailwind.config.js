@@ -22,5 +22,13 @@ export default {
     },
   },
   variants: {},
-  plugins: [],
-}
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.placeholder-gray': {
+          '@apply placeholder-gray-700': {},
+        },
+      });
+    },
+  ],
+};

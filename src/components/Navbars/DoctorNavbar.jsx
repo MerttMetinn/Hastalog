@@ -1,14 +1,21 @@
 import { useState } from 'react';
-import { FaUserDoctor } from "react-icons/fa6";
+import { FaUserMd } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
 import Swal from 'sweetalert2';
 
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMedicalReportOpen, setMedicalReportOpen] = useState(false);
+
 
   const handleDropdownToggle = () => {
     setIsOpen(!isOpen);
+    setMedicalReportOpen(false);
+  };
+
+  const handleMedicalReportToggle = () => {
+    setMedicalReportOpen(!isMedicalReportOpen);
   };
 
   const handleLogout = () => {
@@ -44,12 +51,12 @@ const DoctorNavbar = () => {
     });
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-gradient-to-r from-slate-900 to-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
         <Link to="/anasayfa/doktor">
         <div className="flex items-center text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-lg font-medium">
-          <FaUserDoctor className="text-white font-semibold text-2xl" />
+          <FaUserMd className="text-white font-semibold text-2xl" />
           <span className="ml-1">Hoşgeldiniz - Doktor</span>
         </div>
       </Link>
@@ -72,15 +79,54 @@ const DoctorNavbar = () => {
                   <Link to="/anasayfa/hasta" className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md">
                     Hastalarım
                   </Link>
-                  <li className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md">
+                  <Link className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md">
                     Randevular
-                  </li>
-                  <li className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md">
-                    Tıbbi Raporlar
-                  </li>
-                  <li className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md">
+                  </Link>
+                  <Link
+                    className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                    onClick={handleMedicalReportToggle}
+                  >
+                    Tıbbi Rapor İşlemleri
+                  </Link>
+                  {isMedicalReportOpen && (
+                    <ul className="absolute left-full top-0 z-20 ml-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" style={{ marginTop: '80px' }}>
+                      <Link
+                        to="/doktor/tıbbiraporekle"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Tıbbi Rapor Ekle
+                      </Link>
+                      <Link
+                        to="/doktor/tıbbiraporsil"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Tıbbi Rapor Sil
+                      </Link>
+                      <Link
+                        to="/doktor/tıbbiraporgüncelle"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Tıbbi Rapor Güncelle
+                      </Link>
+                      <Link
+                        to="/doktor/tıbbiraporgüncelle"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Tıbbi Raporları Görüntüle
+                      </Link>
+                      <Link
+                        to="/doktor/tıbbiraporgüncelle"
+                        className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        Hasta Bazlı Tıbbi Raporları Görüntüle
+                      </Link>
+                    </ul>
+                  )}
+                  <Link 
+                  to="/doktor/bilgilerim"
+                  className="block px-4 py-3 text-xs text-gray-700 hover:bg-gray-100 rounded-md">
                     Bilgilerim
-                  </li>
+                  </Link>
                 </ul>
               )}
               <Link

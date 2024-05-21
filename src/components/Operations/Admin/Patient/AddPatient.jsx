@@ -10,7 +10,7 @@ const AddPatient = () => {
     email: "",
     password: "",
     birthDate: "",
-    gender: true,
+    gender: "",
     phoneNumber: "",
     address: "",
   });
@@ -44,27 +44,34 @@ const AddPatient = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = () => {
-  axiosInstance.post('Patients/AddPatient', formData)
-    .then((response) => {
-      console.log('Hasta başarıyla eklendi:', response.data);
-      notifySuccess();
-      setFormData({
-        name: "",
-        surname: "",
-        email: "",
-        password: "",
-        birthDate: "",
-        gender: true,
-        phoneNumber: "",
-        address: "",
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const adjustedFormData = {
+      ...formData,
+      gender: formData.gender === "true",
+    };
+
+    axiosInstance.post('Patients/AddPatient', adjustedFormData)
+      .then((response) => {
+        console.log('Hasta başarıyla eklendi:', response.data);
+        notifySuccess();
+        setFormData({
+          name: "",
+          surname: "",
+          email: "",
+          password: "",
+          birthDate: "",
+          gender: "",
+          phoneNumber: "",
+          address: "",
+        });
+      })
+      .catch((error) => {
+        console.error('Hasta eklenirken bir hata oluştu: ', error);
+        notifyError();
       });
-    })
-    .catch((error) => {
-      console.error('Hasta eklenirken bir hata oluştu: ', error);
-      notifyError();
-    })
-};
+  };
 
   return (
     <div className="flex justify-center bg-gray-100 min-h-screen py-6">
@@ -93,6 +100,7 @@ const AddPatient = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="İsim"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -112,6 +120,7 @@ const AddPatient = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Soyisim"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -131,6 +140,7 @@ const AddPatient = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="E-posta"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -150,6 +160,7 @@ const AddPatient = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Şifre"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -169,6 +180,7 @@ const AddPatient = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Doğum Tarihi"
+              autoComplete="off"
             />
           </div>
           <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0 py-2">
@@ -185,9 +197,13 @@ const AddPatient = () => {
               value={formData.gender}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              required
             >
-              <option value={true}>Erkek</option>
-              <option value={false}>Kadın</option>
+              <option value="" disabled>
+                Cinsiyet Seçiniz
+              </option>
+              <option value="true">Erkek</option>
+              <option value="false">Kadın</option>
             </select>
           </div>
           <div className="w-full px-4 mb-4 py-2">
@@ -207,6 +223,7 @@ const AddPatient = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Telefon Numarası"
+              autoComplete="off"
             />
           </div>
           <div className="w-full px-4 mb-4">
@@ -225,6 +242,7 @@ const AddPatient = () => {
               className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               required
               placeholder="Adres"
+              autoComplete="off"
             ></textarea>
           </div>
         </div>
@@ -241,4 +259,4 @@ const AddPatient = () => {
   );
 };
 
-export default AddPatient;
+export default AddPatient;            
